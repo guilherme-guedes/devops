@@ -1,0 +1,33 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "hashicorp/bionic64"
+  config.vm.hostname = "docker-server" 
+  config.vm.network "private_network", ip: "192.168.77.102"
+  config.vm.network "forwarded_port", guest: 8080, host: 8080
+  #config.ssh.username = "vagrant"
+  #config.ssh.password = "vagrant"  
+  
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 1024
+    v.cpus = 2
+    v.name = "docker-server"
+	v.gui = true
+  end
+        
+  config.vm.provision "shell" do |shell|
+    shell.path = "users.sh"
+  end
+  
+  config.vm.provision "shell" do |shell|
+    shell.path = "folders.sh"
+  end
+  
+  config.vm.provision "file", source: "./Jenkins/configurations.yaml", destination: "/home/docker/jenkins/configurations.yaml"
+  config.vm.provision "file", source: "./Jenkins/plugins.txt", destination: "/home/docker/jenkins/plugins.txt"
+  config.vm.provision "file", source: "./Jenkins/Dockerfile", destination: "/home/docker/jenkins/Dockerfile"
+
+  
+  config.vm.provision "docker" do |d|
+    #d.build_image "/vagrant/app"
+  end
+    
+end
