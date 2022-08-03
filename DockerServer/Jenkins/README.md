@@ -17,7 +17,7 @@ docker build -t guilherme:jenkins-casc .
 
 Levantando container com usuário/senha para o Jenkins (e IP definido no Vagrantfile do host dos containers)
 ```sh
-docker run --name jenkins -p 192.168.77.102:8080:8080 --env JENKINS_ADMIN_ID=admin --env JENKINS_ADMIN_PASSWORD=password guilherme:jenkins-casc
+docker run --name jenkins -p 192.168.0.2:8080:8080 --env JENKINS_ADMIN_ID=admin --env JENKINS_ADMIN_PASSWORD=password guilherme:jenkins-casc
 ```
 
 ### Outros comandos
